@@ -1,0 +1,641 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#090914">
+<meta name="description" content="NEURO — полезные инструменты для учёбы, творчества и работы.">
+<title>NEURO — твой AI-пространство</title>
+
+<style>
+:root {
+  --bg: #090914;
+  --panel: #111120;
+  --panel2: #17172a;
+  --text: #f4f3ff;
+  --muted: #9898b5;
+  --purple: #9875ff;
+  --blue: #55c8ff;
+  --border: rgba(255,255,255,.09);
+}
+
+* { box-sizing: border-box; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  margin: 0;
+  background:
+    radial-gradient(ellipse at 15% 0%, rgba(104,65,210,.19), transparent 40%),
+    radial-gradient(ellipse at 95% 20%, rgba(35,124,190,.12), transparent 35%),
+    var(--bg);
+  color: var(--text);
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  min-height: 100vh;
+}
+
+button, input, textarea { font: inherit; }
+
+button { cursor: pointer; }
+
+header {
+  width: min(1120px, 92%);
+  margin: auto;
+  padding: 23px 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid var(--border);
+}
+
+.logo {
+  font-size: 27px;
+  font-weight: 900;
+  letter-spacing: 3px;
+  background: linear-gradient(100deg, #b69aff, #5ed8ff);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.logo small {
+  display: block;
+  font-size: 9px;
+  letter-spacing: 2px;
+  color: var(--muted);
+  margin-top: 2px;
+}
+
+.status {
+  font-size: 12px;
+  color: #a9f5cf;
+  border: 1px solid rgba(83,238,166,.2);
+  background: rgba(83,238,166,.07);
+  border-radius: 30px;
+  padding: 9px 12px;
+}
+
+.status span { color: #61efa6; }
+
+main {
+  width: min(1120px, 92%);
+  margin: auto;
+}
+
+.hero {
+  padding: 76px 0 35px;
+  text-align: center;
+}
+
+.badge {
+  display: inline-block;
+  color: #c6b5ff;
+  background: rgba(152,117,255,.12);
+  border: 1px solid rgba(152,117,255,.25);
+  border-radius: 30px;
+  padding: 8px 14px;
+  font-size: 12px;
+  margin-bottom: 20px;
+}
+
+h1 {
+  font-size: clamp(39px, 7vw, 68px);
+  line-height: 1.06;
+  letter-spacing: -2px;
+  margin: 0;
+}
+
+.gradient {
+  background: linear-gradient(95deg, #b49aff, #65d7ff);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.hero p {
+  max-width: 570px;
+  margin: 20px auto 28px;
+  color: var(--muted);
+  line-height: 1.7;
+  font-size: 16px;
+}
+
+.search-wrap {
+  width: min(600px, 100%);
+  margin: auto;
+  position: relative;
+}
+
+.search-wrap input {
+  width: 100%;
+  padding: 17px 18px 17px 48px;
+  color: white;
+  background: rgba(20,20,39,.9);
+  border: 1px solid rgba(169,145,255,.3);
+  border-radius: 15px;
+  outline: none;
+}
+
+.search-wrap input:focus {
+  border-color: var(--purple);
+  box-shadow: 0 0 25px rgba(152,117,255,.12);
+}
+
+.search-icon {
+  position: absolute;
+  left: 17px;
+  top: 16px;
+  color: var(--muted);
+}
+
+.section-heading {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+  margin: 37px 0 18px;
+}
+
+h2 {
+  font-size: 22px;
+  margin: 0;
+}
+
+.section-heading p {
+  color: var(--muted);
+  font-size: 12px;
+  margin: 6px 0 0;
+}
+
+.filters {
+  display: flex;
+  gap: 9px;
+  flex-wrap: wrap;
+  margin-bottom: 22px;
+}
+
+.filter {
+  padding: 9px 14px;
+  border: 1px solid var(--border);
+  border-radius: 30px;
+  background: #111120;
+  color: #c5c4dc;
+  font-size: 13px;
+}
+
+.filter.active, .filter:hover {
+  color: white;
+  border-color: rgba(152,117,255,.6);
+  background: rgba(152,117,255,.17);
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 16px;
+}
+
+.card {
+  min-width: 0;
+  padding: 22px;
+  background: linear-gradient(145deg, rgba(24,24,45,.96), rgba(15,15,29,.96));
+  border: 1px solid var(--border);
+  border-radius: 19px;
+  transition: transform .2s, border-color .2s;
+}
+
+.card:hover {
+  transform: translateY(-4px);
+  border-color: rgba(152,117,255,.45);
+}
+
+.card-icon {
+  width: 49px;
+  height: 49px;
+  display: grid;
+  place-items: center;
+  border-radius: 14px;
+  font-size: 24px;
+  background: linear-gradient(135deg, rgba(152,117,255,.22), rgba(85,200,255,.12));
+  border: 1px solid rgba(152,117,255,.18);
+  margin-bottom: 17px;
+}
+
+.card h3 { margin: 0 0 9px; font-size: 17px; }
+
+.card p {
+  color: var(--muted);
+  font-size: 13px;
+  line-height: 1.65;
+  min-height: 43px;
+  margin: 0 0 20px;
+}
+
+.card button, .primary {
+  width: 100%;
+  border: 0;
+  border-radius: 11px;
+  padding: 12px;
+  color: white;
+  font-weight: 650;
+  background: linear-gradient(100deg, #7957dc, #477ddf);
+  transition: opacity .2s;
+}
+
+.card button:hover, .primary:hover { opacity: .85; }
+
+.empty {
+  display: none;
+  padding: 35px;
+  text-align: center;
+  color: var(--muted);
+}
+
+.note {
+  margin: 30px 0 50px;
+  padding: 17px;
+  border-radius: 13px;
+  border: 1px solid var(--border);
+  background: rgba(255,255,255,.025);
+  color: var(--muted);
+  font-size: 12px;
+  line-height: 1.7;
+}
+
+.note strong { color: #d6caff; }
+
+footer {
+  text-align: center;
+  padding: 27px 15px 35px;
+  border-top: 1px solid var(--border);
+  color: #777792;
+  font-size: 12px;
+}
+
+footer strong { color: #b9a5ff; }
+
+.modal {
+  display: none;
+  position: fixed;
+  inset: 0;
+  z-index: 10;
+  padding: 18px;
+  align-items: center;
+  justify-content: center;
+  background: rgba(4,4,12,.82);
+  backdrop-filter: blur(8px);
+}
+
+.modal.open { display: flex; }
+
+.modal-box {
+  width: min(550px, 100%);
+  max-height: 90vh;
+  overflow: auto;
+  background: #141426;
+  border: 1px solid rgba(152,117,255,.35);
+  border-radius: 20px;
+  padding: 24px;
+  box-shadow: 0 20px 80px rgba(0,0,0,.45);
+}
+
+.modal-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 10px;
+}
+
+.modal-top h2 { font-size: 21px; }
+
+.close {
+  background: #25253b;
+  color: white;
+  border: 0;
+  border-radius: 9px;
+  padding: 8px 12px;
+}
+
+.modal-box label {
+  display: block;
+  margin: 18px 0 8px;
+  color: #d5d3ee;
+  font-size: 13px;
+}
+
+.modal-box textarea {
+  display: block;
+  width: 100%;
+  min-height: 115px;
+  resize: vertical;
+  padding: 13px;
+  border: 1px solid var(--border);
+  border-radius: 11px;
+  outline: none;
+  color: white;
+  background: #0d0d1a;
+  line-height: 1.5;
+}
+
+.modal-box textarea:focus { border-color: var(--purple); }
+
+.result {
+  display: none;
+  white-space: pre-wrap;
+  margin-top: 17px;
+  padding: 15px;
+  border: 1px solid var(--border);
+  border-radius: 11px;
+  background: #0c0c19;
+  color: #e0dcff;
+  font-size: 14px;
+  line-height: 1.7;
+  overflow-wrap: anywhere;
+}
+
+.result.show { display: block; }
+
+.copy {
+  display: none;
+  margin-top: 10px;
+  padding: 10px 14px;
+  color: white;
+  border: 1px solid var(--border);
+  border-radius: 9px;
+  background: #25253b;
+}
+
+.copy.show { display: inline-block; }
+
+@media (max-width: 760px) {
+  .grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .hero { padding-top: 55px; }
+  .section-heading { align-items: flex-start; flex-direction: column; }
+}
+
+@media (max-width: 480px) {
+  .grid { grid-template-columns: 1fr; }
+  .card { padding: 20px; }
+  h1 { letter-spacing: -1.5px; }
+  .hero p { font-size: 14px; }
+  .status { font-size: 10px; padding: 8px; }
+}
+</style>
+</head>
+
+<body>
+<header>
+  <div class="logo">NEURO<small>YOUR CREATIVE SPACE</small></div>
+  <div class="status"><span>●</span> Платформа запущена</div>
+</header>
+
+<main>
+  <section class="hero">
+    <div class="badge">✦ ТВОЁ ПРОСТРАНСТВО ВОЗМОЖНОСТЕЙ</div>
+    <h1>Идеи становятся<br><span class="gradient">реальностью.</span></h1>
+    <p>Инструменты для учёбы, творчества и новых проектов — в одном удобном месте.</p>
+
+    <div class="search-wrap">
+      <span class="search-icon">⌕</span>
+      <input id="search" type="search" placeholder="Найди нужный инструмент..." aria-label="Поиск инструментов">
+    </div>
+  </section>
+
+  <section>
+    <div class="section-heading">
+      <div>
+        <h2>Инструменты</h2>
+        <p>Выбери помощника и начни создавать</p>
+      </div>
+      <p id="count">6 инструментов</p>
+    </div>
+
+    <div class="filters">
+      <button class="filter active" data-category="all">Все</button>
+      <button class="filter" data-category="study">📚 Учёба</button>
+      <button class="filter" data-category="creative">🎨 Творчество</button>
+      <button class="filter" data-category="work">💼 Работа</button>
+      <button class="filter" data-category="code">💻 Код</button>
+    </div>
+
+    <div class="grid" id="grid">
+      <article class="card" data-category="creative" data-title="Генератор идей">
+        <div class="card-icon">💡</div>
+        <h3>Генератор идей</h3>
+        <p>Придумай идеи для проекта, блога, приложения или нового хобби.</p>
+        <button data-tool="ideas">Попробовать ↗</button>
+      </article>
+
+      <article class="card" data-category="work" data-title="Помощник для текстов">
+        <div class="card-icon">✍️</div>
+        <h3>Помощник для текстов</h3>
+        <p>Подготовь основу поста, описания, письма или статьи.</p>
+        <button data-tool="text">Создать текст ↗</button>
+      </article>
+
+      <article class="card" data-category="code" data-title="Помощник программиста">
+        <div class="card-icon">⌘</div>
+        <h3>Помощник программиста</h3>
+        <p>Сформулируй задачу, разберись с ошибкой или спланируй код.</p>
+        <button data-tool="code">Начать ↗</button>
+      </article>
+
+      <article class="card" data-category="study" data-title="Планировщик учёбы">
+        <div class="card-icon">📚</div>
+        <h3>Планировщик учёбы</h3>
+        <p>Составь план подготовки к предмету или важному проекту.</p>
+        <button data-tool="study">Составить план ↗</button>
+      </article>
+
+      <article class="card" data-category="creative" data-title="Названия для бренда">
+        <div class="card-icon">✨</div>
+        <h3>Названия для бренда</h3>
+        <p>Найди вдохновение для названия бренда, канала или приложения.</p>
+        <button data-tool="brand">Придумать ↗</button>
+      </article>
+
+      <article class="card" data-category="creative" data-title="Помощник для видео">
+        <div class="card-icon">🎬</div>
+        <h3>Помощник для видео</h3>
+        <p>Подготовь основу сценария для ролика или короткого видео.</p>
+        <button data-tool="video">Создать сценарий ↗</button>
+      </article>
+    </div>
+
+    <div class="empty" id="empty">Ничего не найдено. Попробуй другой запрос.</div>
+  </section>
+
+  <div class="note">
+    <strong>ℹ️ О проекте:</strong> NEURO — демонстрационная версия платформы.
+    Инструменты сейчас создают шаблонные результаты прямо в браузере.
+    Для настоящих ответов искусственного интеллекта потребуется безопасное подключение к AI-сервису.
+  </div>
+</main>
+
+<footer>
+  <strong>NEURO</strong> · Создано для идей, обучения и творчества.<br>
+  <span style="display:block;margin-top:8px">© 2026 NEURO · Учебный проект</span>
+</footer>
+
+<div class="modal" id="modal" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+  <div class="modal-box">
+    <div class="modal-top">
+      <h2 id="modalTitle">Инструмент NEURO</h2>
+      <button class="close" id="close" aria-label="Закрыть">✕</button>
+    </div>
+    <p id="modalDesc" style="color:#9898b5;font-size:13px;line-height:1.6"></p>
+    <label for="prompt" id="promptLabel">Опиши свою задачу</label>
+    <textarea id="prompt" placeholder="Напиши, что хочешь создать..."></textarea>
+    <button class="primary" id="generate" style="margin-top:14px">Создать результат ✦</button>
+    <div class="result" id="result" aria-live="polite"></div>
+    <button class="copy" id="copy">Скопировать результат</button>
+  </div>
+</div>
+
+<script>
+const tools = {
+  ideas: {
+    title: "💡 Генератор идей",
+    desc: "Расскажи, для чего нужна идея. Инструмент подготовит стартовые варианты.",
+    placeholder: "Например: идея для полезного мобильного приложения",
+    label: "Для чего нужна идея?",
+    make: p => "ИДЕИ ДЛЯ ТВОЕГО ПРОЕКТА\n\n1. Минималистичный помощник для решения одной полезной задачи.\n2. Платформа, где пользователи делятся короткими советами.\n3. Удобный трекер привычек с заметками и напоминаниями.\n\nТВОЯ ТЕМА:\n" + p + "\n\nСледующий шаг: выбери вариант, опиши для кого он предназначен и создай простую первую версию.\n\nЭто демонстрационный шаблон, а не ответ настоящей AI-модели."
+  },
+  text: {
+    title: "✍️ Помощник для текстов",
+    desc: "Подготовь основу текста, которую сможешь отредактировать под себя.",
+    placeholder: "Например: пост о запуске моего нового проекта",
+    label: "О чём будет текст?",
+    make: p => "ЧЕРНОВИК\n\nПривет! Хочу рассказать о новой идее: " + p + ".\n\nЯ работаю над этим проектом, чтобы сделать процесс проще и удобнее. Впереди ещё много интересного, и я буду делиться новостями по мере развития.\n\nЧто думаешь об этой идее? Буду рад узнать твоё мнение!\n\n---\nЭто примерный шаблон. Проверь и адаптируй его перед публикацией."
+  },
+  code: {
+    title: "⌘ Помощник программиста",
+    desc: "Опиши задачу или ошибку. Получишь пример плана действий.",
+    placeholder: "Например: хочу добавить кнопку переключения темы на сайте",
+    label: "Твоя задача по программированию",
+    make: p => "ПЛАН РЕШЕНИЯ\n\nЗадача: " + p + "\n\n1. Определи, какой результат должен получиться.\n2. Найди HTML-элемент или функцию, которую нужно изменить.\n3. Реализуй небольшое изменение.\n4. Проверь работу на телефоне и компьютере.\n5. Исправь ошибки и сохрани рабочую версию.\n\nПодсказка: перед изменением кода сохрани его копию.\n\nЭто общий план, а не автоматически проверенное решение."
+  },
+  study: {
+    title: "📚 Планировщик учёбы",
+    desc: "Составь простой план подготовки. Укажи предмет или тему.",
+    placeholder: "Например: подготовиться к контрольной по математике",
+    label: "Что нужно изучить?",
+    make: p => "ТВОЙ ПЛАН ПОДГОТОВКИ\n\nТема: " + p + "\n\n1. 10 минут — выпиши темы и вопросы, которые нужно понять.\n2. 20 минут — повтори теорию и основные определения.\n3. 20 минут — реши несколько упражнений самостоятельно.\n4. 10 минут — проверь ошибки и повтори сложные моменты.\n5. 5 минут — запиши, что стоит повторить позже.\n\nСовет: делай короткие перерывы и адаптируй план под свои задачи."
+  },
+  brand: {
+    title: "✨ Названия для бренда",
+    desc: "Укажи тему проекта, чтобы получить несколько вариантов названий.",
+    placeholder: "Например: технологичный проект для творчества",
+    label: "Опиши свой проект",
+    make: p => "ИДЕИ НАЗВАНИЙ\n\n1. NovaLab — новое пространство для идей.\n2. Viora — короткое и мягкое звучание.\n3. Nexora — технологичный характер.\n4. Lumio — ассоциация со светом и открытиями.\n5. IdeaFlow — поток идей.\n\nТВОЙ ПРОЕКТ: " + p + "\n\nПеред выбором проверь доступность названия, домена и товарного знака. Эти варианты могут уже использоваться."
+  },
+  video: {
+    title: "🎬 Помощник для видео",
+    desc: "Создай черновой план короткого ролика.",
+    placeholder: "Например: видео о том, как я создаю свой первый сайт",
+    label: "Тема ролика",
+    make: p => "ПЛАН ВИДЕО\n\nТема: " + p + "\n\nКАДР 1 — ЗАЦЕПКА (0–3 сек.)\nНачни с интересного вопроса или результата.\n\nКАДР 2 — ОСНОВНАЯ ЧАСТЬ (3–15 сек.)\nПокажи три ключевых шага или факта.\n\nКАДР 3 — РЕЗУЛЬТАТ (15–25 сек.)\nПокажи, что получилось, и коротко подведи итог.\n\nКАДР 4 — ФИНАЛ\nПредложи зрителю поделиться своим мнением.\n\nЭто шаблон сценария. Добавь собственные кадры и детали."
+  }
+};
+
+const modal = document.getElementById("modal");
+const promptBox = document.getElementById("prompt");
+const resultBox = document.getElementById("result");
+const copyButton = document.getElementById("copy");
+let currentTool = null;
+let currentCategory = "all";
+
+function openTool(key) {
+  currentTool = tools[key];
+  document.getElementById("modalTitle").textContent = currentTool.title;
+  document.getElementById("modalDesc").textContent = currentTool.desc;
+  document.getElementById("promptLabel").textContent = currentTool.label;
+  promptBox.placeholder = currentTool.placeholder;
+  promptBox.value = "";
+  resultBox.textContent = "";
+  resultBox.classList.remove("show");
+  copyButton.classList.remove("show");
+  modal.classList.add("open");
+  setTimeout(() => promptBox.focus(), 100);
+}
+
+document.querySelectorAll("[data-tool]").forEach(button => {
+  button.addEventListener("click", () => openTool(button.dataset.tool));
+});
+
+function closeModal() {
+  modal.classList.remove("open");
+}
+
+document.getElementById("close").addEventListener("click", closeModal);
+
+modal.addEventListener("click", event => {
+  if (event.target === modal) closeModal();
+});
+
+document.addEventListener("keydown", event => {
+  if (event.key === "Escape") closeModal();
+});
+
+document.getElementById("generate").addEventListener("click", () => {
+  const prompt = promptBox.value.trim();
+
+  if (!prompt) {
+    promptBox.focus();
+    promptBox.placeholder = "Сначала напиши свою задачу...";
+    return;
+  }
+
+  resultBox.textContent = currentTool.make(prompt);
+  resultBox.classList.add("show");
+  copyButton.classList.add("show");
+});
+
+copyButton.addEventListener("click", async () => {
+  try {
+    await navigator.clipboard.writeText(resultBox.textContent);
+    copyButton.textContent = "✓ Скопировано!";
+    setTimeout(() => copyButton.textContent = "Скопировать результат", 1800);
+  } catch {
+    const selection = window.getSelection();
+    const range = document.createRange();
+    range.selectNodeContents(resultBox);
+    selection.removeAllRanges();
+    selection.addRange(range);
+    copyButton.textContent = "Выдели текст и скопируй";
+  }
+});
+
+const cards = [...document.querySelectorAll(".card")];
+const search = document.getElementById("search");
+
+function updateCards() {
+  const query = search.value.toLowerCase().trim();
+  let visible = 0;
+
+  cards.forEach(card => {
+    const matchesSearch = (card.dataset.title + " " + card.innerText).toLowerCase().includes(query);
+    const matchesCategory = currentCategory === "all" || card.dataset.category === currentCategory;
+    const show = matchesSearch && matchesCategory;
+    card.style.display = show ? "" : "none";
+    if (show) visible++;
+  });
+
+  document.getElementById("count").textContent = visible + (visible === 1 ? " инструмент" : visible >= 2 && visible <= 4 ? " инструмента" : " инструментов");
+  document.getElementById("empty").style.display = visible ? "none" : "block";
+}
+
+search.addEventListener("input", updateCards);
+
+document.querySelectorAll(".filter").forEach(button => {
+  button.addEventListener("click", () => {
+    document.querySelectorAll(".filter").forEach(b => b.classList.remove("active"));
+    button.classList.add("active");
+    currentCategory = button.dataset.category;
+    updateCards();
+  });
+});
+</script>
+</body>
+</html>
